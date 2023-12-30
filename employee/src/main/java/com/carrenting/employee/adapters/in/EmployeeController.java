@@ -68,7 +68,7 @@ public class EmployeeController {
     }
 
     //GET: http://localhost:[PORT_EMPLOYEE]/api/employees/reservations
-    @GetMapping("/reservations")
+    @GetMapping("/reservation")
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
         List<ReservationDto> reservations = employeeManager.getAllReservations();
         return ResponseEntity.ok(reservations);
@@ -81,19 +81,19 @@ public class EmployeeController {
 
     //POST: http://localhost:[PORT_EMPLOYEE]/api/employees/reservations
     //JSON: {"customerId": 1, "carId": 1, "startDate": "2023-07-01T10:00:00", "endDate": "2023-07-03T15:00:00" }
-    @PostMapping("/reservations")
+    @PostMapping("/reservation")
     public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservation) {
         ReservationDto createdReservation = employeeManager.createReservation(reservation);
         return ResponseEntity.ok(createdReservation);
     }
 
-    @PutMapping("/reservations/{id}")
+    @PutMapping("/reservation/{id}")
     public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @RequestBody ReservationDto reservation) {
         ReservationDto updatedReservation = employeeManager.updateReservation(id, reservation);
         return ResponseEntity.ok(updatedReservation);
     }
 
-    @DeleteMapping("/reservations/{id}")
+    @DeleteMapping("/reservation/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         employeeManager.deleteReservation(id);
         return ResponseEntity.ok().build();

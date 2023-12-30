@@ -49,7 +49,7 @@ public class EmployeeService implements EmployeeManager {
 
     @Override
     public List<ReservationDto> getAllReservations() {
-        ReservationDto[] reservations = restTemplate.getForObject("http://localhost:8083/api/reservations", ReservationDto[].class);
+        ReservationDto[] reservations = restTemplate.getForObject("http://localhost:8083/api/reservation", ReservationDto[].class);
         return Arrays.asList(reservations);
     }
 
@@ -57,18 +57,18 @@ public class EmployeeService implements EmployeeManager {
     //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
     @Override
     public ReservationDto createReservation(ReservationDto reservation) {
-        return restTemplate.postForObject("http://localhost:8083/api/reservations", reservation, ReservationDto.class);
+        return restTemplate.postForObject("http://localhost:8083/api/reservation", reservation, ReservationDto.class);
     }
 
     @Override
     public ReservationDto updateReservation(Long reservationId, ReservationDto reservation) {
-        restTemplate.put("http://localhost:8083/api/reservations/" + reservationId, reservation);
+        restTemplate.put("http://localhost:8083/api/reservation/" + reservationId, reservation);
         return reservation;
     }
 
 
     @Override
     public void deleteReservation(Long reservationId) {
-        restTemplate.delete("http://localhost:8083/api/reservations/" + reservationId);
+        restTemplate.delete("http://localhost:8083/api/reservation/" + reservationId);
     }
 }
