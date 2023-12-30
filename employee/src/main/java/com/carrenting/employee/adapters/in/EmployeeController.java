@@ -67,7 +67,7 @@ public class EmployeeController {
         return ResponseEntity.ok(customers);
     }
 
-    //GET: http://localhost:[PORT_EMPLOYEE]/api/employees/reservations
+    //GET: http://localhost:[PORT_EMPLOYEE]/api/employees/reservation
     @GetMapping("/reservation")
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
         List<ReservationDto> reservations = employeeManager.getAllReservations();
@@ -79,7 +79,7 @@ public class EmployeeController {
 
     //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
 
-    //POST: http://localhost:[PORT_EMPLOYEE]/api/employees/reservations
+    //POST: http://localhost:[PORT_EMPLOYEE]/api/employees/reservation
     //JSON: {"customerId": 1, "carId": 1, "startDate": "2023-07-01T10:00:00", "endDate": "2023-07-03T15:00:00" }
     @PostMapping("/reservation")
     public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservation) {
