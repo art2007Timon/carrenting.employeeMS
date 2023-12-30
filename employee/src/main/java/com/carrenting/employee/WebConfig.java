@@ -1,4 +1,4 @@
-package com.carrenting.car;
+package com.carrenting.employee;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
