@@ -54,12 +54,15 @@ public class EmployeeController {
 
     //------------------------[FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen]--------------------------------------
 
+    //Alle Fahrzeuge anzeigen
     //GET http://localhost:8081/api/employees/cars
     @GetMapping("/cars")
     public ResponseEntity<List<CarDto>> getAllCars() {
         List<CarDto> cars = employeeManager.getAllCars();
         return ResponseEntity.ok(cars);
     }
+
+    //Alle Kunden anzeigen
     //GET: http://localhost:8081/api/employees/customers
     @GetMapping("/customer")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
@@ -67,6 +70,8 @@ public class EmployeeController {
         return ResponseEntity.ok(customers);
     }
 
+
+    //Alle Reservierungen anzeigen
     //GET: http://localhost:8081/api/employees/reservation
     @GetMapping("/reservation")
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
@@ -79,23 +84,28 @@ public class EmployeeController {
 
     //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
 
+    //Neue Reservierung
     //POST: http://localhost:8081/api/employees/reservation
-    //    //JSON: {"customerId": 1, "carId": 1, "startDate": "2023-07-01T10:00:00", "endDate": "2023-07-03T15:00:00" }
+    //JSON: {"customerId": 1, "carId": 1, "startDate": "2023-07-01T10:00:00", "endDate": "2023-07-03T15:00:00" }
     @PostMapping("/reservation")
-    public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservation) {
-        ReservationDto createdReservation = employeeManager.createReservation(reservation);
-        return ResponseEntity.ok(createdReservation);
+    public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservation) {
+        ReservationDto addReservation = employeeManager.addReservation(reservation);
+        return ResponseEntity.ok(addReservation);
     }
 
-    @PutMapping("/reservation/{id}")
-    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @RequestBody ReservationDto reservation) {
-        ReservationDto updatedReservation = employeeManager.updateReservation(id, reservation);
-        return ResponseEntity.ok(updatedReservation);
-    }
-
+    //Reservierung nach ID Loeschen
+    //DELETE: http://localhost:8081/api/employees/reservation/12
     @DeleteMapping("/reservation/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         employeeManager.deleteReservation(id);
         return ResponseEntity.ok().build();
+    }
+
+    //Reservierung fuer einen Fahrzeig nach CARID nasehen
+    // GET: http://localhost:8081/api/employees/reservation/vehicle?carID=3
+    @GetMapping("/reservation/vehicle")
+    public ResponseEntity<List<ReservationDto>> getReservationsForVehicle(@RequestParam("carID") int carID) {
+        List<ReservationDto> reservations = employeeManager.getReservationsForVehicle(carID);
+        return ResponseEntity.ok(reservations);
     }
 }

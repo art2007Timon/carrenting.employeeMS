@@ -9,6 +9,8 @@ import java.util.List;
 
 @FeignClient(name = "car-service", url = "http://localhost:8080")
 public interface CarClient {
+
+    //Alle Fahrzeuge anzeigen
     @GetMapping("/api/cars")
     List<CarDto> getAllCars();
 }

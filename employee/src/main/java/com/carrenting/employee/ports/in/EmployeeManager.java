@@ -2,6 +2,9 @@ package com.carrenting.employee.ports.in;
 import com.carrenting.employee.dto.CarDto;
 import com.carrenting.employee.dto.CustomerDto;
 import com.carrenting.employee.dto.ReservationDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -16,7 +19,8 @@ public interface EmployeeManager {
     List<ReservationDto> getAllReservations();
 
     //FUNC-MITA-030 – Reservierungen verwalten
-    ReservationDto createReservation(ReservationDto reservation);
-    ReservationDto updateReservation(Long reservationId, ReservationDto reservation);
+    ReservationDto addReservation(ReservationDto reservation);
     void deleteReservation(Long reservationId);
+
+    List<ReservationDto> getReservationsForVehicle(@RequestParam("carID") int carID);
 }

@@ -8,6 +8,8 @@ import java.util.List;
 
 @FeignClient(name = "customer-service", url = "http://localhost:8082")
 public interface CustomerClient {
+
+    //Alle Kunden anzeigen
     @GetMapping("/api/customer")
     List<CustomerDto> getAllCustomers();
 }

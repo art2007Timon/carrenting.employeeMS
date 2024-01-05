@@ -58,17 +58,16 @@ public class EmployeeService implements EmployeeManager {
 
     //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
     @Override
-    public ReservationDto createReservation(ReservationDto reservation) {
-        return reservationClient.createReservation(reservation);
-    }
-
-    @Override
-    public ReservationDto updateReservation(Long reservationId, ReservationDto reservation) {
-        return reservationClient.updateReservation(reservationId, reservation);
+    public ReservationDto addReservation(ReservationDto reservation) {
+        return reservationClient.addReservation(reservation);
     }
 
     @Override
     public void deleteReservation(Long reservationId) {
         reservationClient.deleteReservation(reservationId);
+    }
+
+    public List<ReservationDto> getReservationsForVehicle(int carID) {
+        return reservationClient.getReservationsForVehicle(carID);
     }
 }
