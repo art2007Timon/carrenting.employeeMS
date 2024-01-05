@@ -27,7 +27,7 @@ public class EmployeeController {
 
     //------------------------[FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount]--------------------------------------
 
-    //http://localhost:8080/api/employees/login
+    //http://localhost:8081/api/employees/login
     //JSON: {"email": "mayerp@example.com", "password": "password123" }
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
@@ -54,20 +54,20 @@ public class EmployeeController {
 
     //------------------------[FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen]--------------------------------------
 
-    //GET http://localhost:[PORT_EMPLOYEE]/api/employees/cars
+    //GET http://localhost:8081/api/employees/cars
     @GetMapping("/cars")
     public ResponseEntity<List<CarDto>> getAllCars() {
         List<CarDto> cars = employeeManager.getAllCars();
         return ResponseEntity.ok(cars);
     }
-    //GET: http://localhost:[PORT_EMPLOYEE]/api/employees/customers
-    @GetMapping("/customers")
+    //GET: http://localhost:8081/api/employees/customers
+    @GetMapping("/customer")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         List<CustomerDto> customers = employeeManager.getAllCustomers();
         return ResponseEntity.ok(customers);
     }
 
-    //GET: http://localhost:[PORT_EMPLOYEE]/api/employees/reservation
+    //GET: http://localhost:8081/api/employees/reservation
     @GetMapping("/reservation")
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
         List<ReservationDto> reservations = employeeManager.getAllReservations();
@@ -79,8 +79,8 @@ public class EmployeeController {
 
     //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
 
-    //POST: http://localhost:[PORT_EMPLOYEE]/api/employees/reservation
-    //JSON: {"customerId": 1, "carId": 1, "startDate": "2023-07-01T10:00:00", "endDate": "2023-07-03T15:00:00" }
+    //POST: http://localhost:8081/api/employees/reservation
+    //    //JSON: {"customerId": 1, "carId": 1, "startDate": "2023-07-01T10:00:00", "endDate": "2023-07-03T15:00:00" }
     @PostMapping("/reservation")
     public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservation) {
         ReservationDto createdReservation = employeeManager.createReservation(reservation);

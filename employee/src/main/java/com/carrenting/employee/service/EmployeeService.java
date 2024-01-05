@@ -3,28 +3,34 @@ package com.carrenting.employee.service;
 import com.carrenting.employee.dto.CarDto;
 import com.carrenting.employee.dto.CustomerDto;
 import com.carrenting.employee.dto.ReservationDto;
+import com.carrenting.employee.feign.CarClient;
+import com.carrenting.employee.feign.CustomerClient;
+import com.carrenting.employee.feign.ReservationClient;
 import com.carrenting.employee.ports.in.EmployeeManager;
 import com.carrenting.employee.ports.out.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class EmployeeService implements EmployeeManager {
 
     private final EmployeeRepository employeeRepository;
-    private final RestTemplate restTemplate;
+    private final CarClient carClient;
+    private final CustomerClient customerClient;
+    private final ReservationClient reservationClient;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, RestTemplate restTemplate) {
+    public EmployeeService(EmployeeRepository employeeRepository,
+                           CarClient carClient,
+                           CustomerClient customerClient,
+                           ReservationClient reservationClient) {
         this.employeeRepository = employeeRepository;
-        this.restTemplate = restTemplate;
+        this.carClient = carClient;
+        this.customerClient = customerClient;
+        this.reservationClient = reservationClient;
     }
-
-
 
     //------------------------[FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount]--------------------------------------
     @Override
@@ -33,42 +39,36 @@ public class EmployeeService implements EmployeeManager {
     }
 
 
-
     //------------------------[FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen]--------------------------------------
     @Override
     public List<CarDto> getAllCars() {
-        CarDto[] cars = restTemplate.getForObject("http://localhost:8080/api/cars", CarDto[].class);
-        return Arrays.asList(cars);
+        return carClient.getAllCars();
     }
 
     @Override
     public List<CustomerDto> getAllCustomers() {
-        CustomerDto[] customers = restTemplate.getForObject("http://localhost:8082/api/customers", CustomerDto[].class);
-        return Arrays.asList(customers);
+        return customerClient.getAllCustomers();
     }
 
     @Override
     public List<ReservationDto> getAllReservations() {
-        ReservationDto[] reservations = restTemplate.getForObject("http://localhost:8083/api/reservation", ReservationDto[].class);
-        return Arrays.asList(reservations);
+        return reservationClient.getAllReservations();
     }
 
 
     //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
     @Override
     public ReservationDto createReservation(ReservationDto reservation) {
-        return restTemplate.postForObject("http://localhost:8083/api/reservation", reservation, ReservationDto.class);
+        return reservationClient.createReservation(reservation);
     }
 
     @Override
     public ReservationDto updateReservation(Long reservationId, ReservationDto reservation) {
-        restTemplate.put("http://localhost:8083/api/reservation/" + reservationId, reservation);
-        return reservation;
+        return reservationClient.updateReservation(reservationId, reservation);
     }
-
 
     @Override
     public void deleteReservation(Long reservationId) {
-        restTemplate.delete("http://localhost:8083/api/reservation/" + reservationId);
+        reservationClient.deleteReservation(reservationId);
     }
 }
