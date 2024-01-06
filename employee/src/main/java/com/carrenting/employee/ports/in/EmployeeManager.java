@@ -1,8 +1,5 @@
 package com.carrenting.employee.ports.in;
-import com.carrenting.employee.dto.CarDto;
-import com.carrenting.employee.dto.CustomerDto;
-import com.carrenting.employee.dto.MaintenanceDto;
-import com.carrenting.employee.dto.ReservationDto;
+import com.carrenting.employee.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,5 +46,10 @@ public interface EmployeeManager {
 
     //Wartungen nach ID loeschen
     void deleteMaintenance(int maintenanceId);
+
+
+
+    //======================================[GPS]====================================================
+    List<GpsDto> getNewestGpsLocationsPerCar();
 
 }

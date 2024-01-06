@@ -1,9 +1,6 @@
 package com.carrenting.employee.adapters.in;
 
-import com.carrenting.employee.dto.CarDto;
-import com.carrenting.employee.dto.CustomerDto;
-import com.carrenting.employee.dto.MaintenanceDto;
-import com.carrenting.employee.dto.ReservationDto;
+import com.carrenting.employee.dto.*;
 import com.carrenting.employee.ports.in.EmployeeManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -167,4 +164,13 @@ public class EmployeeController {
 
 
     //======================================[GPS]====================================================
+    //GET: http://localhost:8081/api/employees/gps/current
+    @GetMapping("/gps/current") //✓
+    public ResponseEntity<List<GpsDto>> getNewestGpsLocationsPerCar(){
+        List<GpsDto> GpsLocationsPerCar = employeeManager.getNewestGpsLocationsPerCar();
+        return ResponseEntity.ok(GpsLocationsPerCar);
+    }
+
+
+
 }

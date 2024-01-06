@@ -1,13 +1,7 @@
 package com.carrenting.employee.service;
 
-import com.carrenting.employee.dto.CarDto;
-import com.carrenting.employee.dto.CustomerDto;
-import com.carrenting.employee.dto.MaintenanceDto;
-import com.carrenting.employee.dto.ReservationDto;
-import com.carrenting.employee.feign.CarClient;
-import com.carrenting.employee.feign.CustomerClient;
-import com.carrenting.employee.feign.MaintenanceClient;
-import com.carrenting.employee.feign.ReservationClient;
+import com.carrenting.employee.dto.*;
+import com.carrenting.employee.feign.*;
 import com.carrenting.employee.ports.in.EmployeeManager;
 import com.carrenting.employee.ports.out.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +18,22 @@ public class EmployeeService implements EmployeeManager {
     private final CustomerClient customerClient;
     private final ReservationClient reservationClient;
     private final MaintenanceClient maintenanceClient;
+    private final GpsClient gpsClient;
+
 
     @Autowired
     public EmployeeService(EmployeeRepository employeeRepository,
                            CarClient carClient,
                            CustomerClient customerClient,
                            ReservationClient reservationClient,
-                           MaintenanceClient maintenanceClient) {
+                           MaintenanceClient maintenanceClient,
+                           GpsClient gpsClient) {
         this.employeeRepository = employeeRepository;
         this.carClient = carClient;
         this.customerClient = customerClient;
         this.reservationClient = reservationClient;
         this.maintenanceClient = maintenanceClient;
+        this.gpsClient = gpsClient;
     }
 
     //------------------------[FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount]--------------------------------------
@@ -111,6 +109,15 @@ public class EmployeeService implements EmployeeManager {
     }
 
 
+
+
+
+
+    //======================================[GPS]====================================================
+    @Override
+    public List<GpsDto> getNewestGpsLocationsPerCar() {
+        return gpsClient.getNewestGpsLocationsPerCar();
+    }
 
 
 }
