@@ -2,6 +2,7 @@ package com.carrenting.employee.adapters.in;
 
 import com.carrenting.employee.dto.CarDto;
 import com.carrenting.employee.dto.CustomerDto;
+import com.carrenting.employee.dto.MaintenanceDto;
 import com.carrenting.employee.dto.ReservationDto;
 import com.carrenting.employee.ports.in.EmployeeManager;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -86,7 +88,7 @@ public class EmployeeController {
 
     //Neue Reservierung
     //POST: http://localhost:8081/api/employees/reservation
-    //JSON: {"customerId": 1, "carId": 1, "startDate": "2023-07-01T10:00:00", "endDate": "2023-07-03T15:00:00" }
+    //JSON:  {"reservationID": 16, "startDate": "2024-01-01T10:00:00", "endDate": "2024-01-07T15:00:00", "customerID": 1, "carID": 4 }
     @PostMapping("/reservation")
     public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservation) {
         ReservationDto addReservation = employeeManager.addReservation(reservation);
@@ -101,11 +103,68 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
-    //Reservierung fuer einen Fahrzeig nach CARID nasehen
+    //Reservierung fuer einen Fahrzeig nach CARID ansehen
     // GET: http://localhost:8081/api/employees/reservation/vehicle?carID=3
     @GetMapping("/reservation/vehicle")
     public ResponseEntity<List<ReservationDto>> getReservationsForVehicle(@RequestParam("carID") int carID) {
         List<ReservationDto> reservations = employeeManager.getReservationsForVehicle(carID);
         return ResponseEntity.ok(reservations);
     }
+
+
+
+
+
+
+
+
+
+    //======================================[Maintenance]====================================================
+
+    //Erstellung der Wartung, Fahrzeugzuweisung
+    // POST: http://localhost:8081/api/employees/maintenance/schedule
+    // Body: { "carID": 1, "startDate": "2023-01-01", "endDate": "2023-01-03" }
+    @PostMapping("/maintenance/schedule") //✓
+    public ResponseEntity<MaintenanceDto> scheduleMaintenance(@RequestBody MaintenanceDto maintenance) {
+        MaintenanceDto scheduledMaintenance = employeeManager.scheduleMaintenance(maintenance);
+        return ResponseEntity.ok(scheduledMaintenance);
+    }
+
+    // Aktualisierung des Wartungsstatus _ Kann von einem Werkstaattsmitarbeiter angewendet werden
+    // PUT: http://localhost:8081/api/employees/maintenance/update/1
+    // Body: { "status": "Kontrolle" } //✓
+    @PutMapping("/maintenance/update/{id}")
+    public ResponseEntity<MaintenanceDto> updateMaintenance(@PathVariable int id, @RequestBody MaintenanceDto maintenance) {
+        MaintenanceDto updatedMaintenance = employeeManager.updateMaintenance(id, maintenance);
+        return ResponseEntity.ok(updatedMaintenance);
+    }
+
+    // Wartungsdetails nach ID
+    // GET: http://localhost:8081/api/employees/maintenance/1
+    @GetMapping("/maintenance/{id}") //✓
+    public ResponseEntity<MaintenanceDto> getMaintenanceById(@PathVariable int id) {
+        Optional<MaintenanceDto> maintenance = employeeManager.getMaintenanceById(id);
+        return maintenance.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    //Alle Fahrzeugen die in Wartung befinden
+    // GET: http://localhost:8081/api/employees/maintenance/all
+    @GetMapping("/maintenance/all") //✓
+    public ResponseEntity<List<MaintenanceDto>> getAllMaintenances() {
+        List<MaintenanceDto> allMaintenances = employeeManager.getAllMaintenances();
+        return ResponseEntity.ok(allMaintenances);
+    }
+
+    //Wartungen nach ID loeschen
+    // DELETE: http://localhost:8081/api/employees/maintenance/delete/1
+    @DeleteMapping("/maintenance/delete/{id}") //✓
+    public ResponseEntity<Void> deleteMaintenance(@PathVariable int id) {
+        employeeManager.deleteMaintenance(id);
+        return ResponseEntity.ok().build();
+    }
+
+
+
+
+    //======================================[GPS]====================================================
 }
