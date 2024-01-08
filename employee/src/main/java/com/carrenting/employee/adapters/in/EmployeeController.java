@@ -29,7 +29,7 @@ public class EmployeeController {
 
     //------------------------[FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount]--------------------------------------
 
-    //http://localhost:8081/api/employees/login
+    //http://localhost:8081/api/employee/login
     //JSON: {"email": "mayerp@example.com", "password": "password123" }
     @PostMapping("/login")
     public ResponseEntity<Employee> login(@RequestBody Map<String, String> credentials) {
@@ -52,7 +52,7 @@ public class EmployeeController {
     //------------------------[FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen]--------------------------------------
 
     //Alle Fahrzeuge anzeigen
-    //GET http://localhost:8081/api/employees/cars
+    //GET http://localhost:8081/api/employee/cars
     @GetMapping("/cars")
     public ResponseEntity<List<CarDto>> getAllCars() {
         List<CarDto> cars = employeeManager.getAllCars();
@@ -60,7 +60,7 @@ public class EmployeeController {
     }
 
     //Alle Kunden anzeigen
-    //GET: http://localhost:8081/api/employees/customers
+    //GET: http://localhost:8081/api/employee/customers
     @GetMapping("/customer")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         List<CustomerDto> customers = employeeManager.getAllCustomers();
@@ -69,7 +69,7 @@ public class EmployeeController {
 
 
     //Alle Reservierungen anzeigen
-    //GET: http://localhost:8081/api/employees/reservation
+    //GET: http://localhost:8081/api/employee/reservation
     @GetMapping("/reservation")
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
         List<ReservationDto> reservations = employeeManager.getAllReservations();
