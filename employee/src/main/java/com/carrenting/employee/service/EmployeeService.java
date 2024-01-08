@@ -37,31 +37,54 @@ public class EmployeeService implements EmployeeManager {
         this.gpsClient = gpsClient;
     }
 
-    //------------------------[FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount]--------------------------------------
+
     @Override
     public Optional<Employee> login(String email, String password) {
         return employeeRepository.findByEmailAndPassword(email, password);
     }
 
 
-    //------------------------[FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen]--------------------------------------
+    //======================================[Car]====================================================
     @Override
     public List<CarDto> getAllCars() {
         return carClient.getAllCars();
     }
 
     @Override
+    public CarDto addCar(CarDto car) {
+        return carClient.addCar(car);
+    }
+
+    @Override
+    public CarDto updateCar(String licensePlate, CarDto car) {
+        return carClient.updateCar(licensePlate, car);
+    }
+
+    @Override
+    public CarDto getCar(String licensePlate) {
+        return carClient.getCar(licensePlate);
+    }
+
+    @Override
+    public void deleteCar(String licensePlate) {
+        carClient.deleteCar(licensePlate);
+    }
+
+
+    //======================================[Customers]====================================================
+    @Override
     public List<CustomerDto> getAllCustomers() {
         return customerClient.getAllCustomers();
     }
 
+
+    //======================================[Reservations]====================================================
     @Override
     public List<ReservationDto> getAllReservations() {
         return reservationClient.getAllReservations();
     }
 
 
-    //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
     @Override
     public ReservationDto addReservation(ReservationDto reservation) {
         return reservationClient.addReservation(reservation);
