@@ -126,7 +126,7 @@ public class EmployeeController {
     }
 
     // Aktualisierung des Wartungsstatus _ Kann von einem Werkstaattsmitarbeiter angewendet werden
-    // PUT: http://localhost:8081/api/employees/maintenance/update/1
+    // PUT: http://localhost:8081/api/employee/maintenance/update/12
     // Body: { "status": "Kontrolle" } //✓
     @PutMapping("/maintenance/update/{id}")
     public ResponseEntity<MaintenanceDto> updateMaintenance(@PathVariable int id, @RequestBody MaintenanceDto maintenance) {
@@ -134,24 +134,24 @@ public class EmployeeController {
         return ResponseEntity.ok(updatedMaintenance);
     }
 
-    // Wartungsdetails nach ID
-    // GET: http://localhost:8081/api/employees/maintenance/1
+    // Wartungsdetails nach ID ✓
+    // GET: http://localhost:8081/api/employee/maintenance/12
     @GetMapping("/maintenance/{id}") //✓
     public ResponseEntity<MaintenanceDto> getMaintenanceById(@PathVariable int id) {
         Optional<MaintenanceDto> maintenance = employeeManager.getMaintenanceById(id);
         return maintenance.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    //Alle Fahrzeugen die in Wartung befinden
-    // GET: http://localhost:8081/api/employees/maintenance/all
+    //Alle Fahrzeugen die in Wartung befinden ✓
+    // GET: http://localhost:8081/api/employee/maintenance/all
     @GetMapping("/maintenance/all") //✓
     public ResponseEntity<List<MaintenanceDto>> getAllMaintenances() {
         List<MaintenanceDto> allMaintenances = employeeManager.getAllMaintenances();
         return ResponseEntity.ok(allMaintenances);
     }
 
-    //Wartungen nach ID loeschen
-    // DELETE: http://localhost:8081/api/employees/maintenance/delete/1
+    //Wartungen nach ID loeschen ✓
+    // DELETE: http://localhost:8081/api/employee/maintenance/delete/13
     @DeleteMapping("/maintenance/delete/{id}") //✓
     public ResponseEntity<Void> deleteMaintenance(@PathVariable int id) {
         employeeManager.deleteMaintenance(id);
