@@ -1,18 +1,21 @@
 package com.carrenting.employee.adapters.in;
 
 import com.carrenting.employee.dto.*;
+import com.carrenting.employee.ports.data.Employee;
 import com.carrenting.employee.ports.in.EmployeeManager;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
     private final EmployeeManager employeeManager;
@@ -29,14 +32,9 @@ public class EmployeeController {
     //http://localhost:8081/api/employees/login
     //JSON: {"email": "mayerp@example.com", "password": "password123" }
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        boolean isAuthenticated = employeeManager.login(loginRequest.getEmail(), loginRequest.getPassword());
-
-        if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful");
-        } else {
-            return ResponseEntity.status(401).body("Unauthorized");
-        }
+    public ResponseEntity<Employee> login(@RequestBody Map<String, String> credentials) {
+        Optional<Employee> employee = employeeManager.login(credentials.get("email"), credentials.get("password"));
+        return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     //Ergibt mehr Sicherheit, enthält nur 2 benoetigen Variablen.

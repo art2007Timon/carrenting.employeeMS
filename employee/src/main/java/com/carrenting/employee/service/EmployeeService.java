@@ -2,6 +2,7 @@ package com.carrenting.employee.service;
 
 import com.carrenting.employee.dto.*;
 import com.carrenting.employee.feign.*;
+import com.carrenting.employee.ports.data.Employee;
 import com.carrenting.employee.ports.in.EmployeeManager;
 import com.carrenting.employee.ports.out.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,8 @@ public class EmployeeService implements EmployeeManager {
 
     //------------------------[FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount]--------------------------------------
     @Override
-    public boolean login(String email, String password) {
-        return employeeRepository.findByEmailAndPassword(email, password).isPresent();
+    public Optional<Employee> login(String email, String password) {
+        return employeeRepository.findByEmailAndPassword(email, password);
     }
 
 

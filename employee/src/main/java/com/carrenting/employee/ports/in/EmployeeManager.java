@@ -1,5 +1,6 @@
 package com.carrenting.employee.ports.in;
 import com.carrenting.employee.dto.*;
+import com.carrenting.employee.ports.data.Employee;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,7 @@ import java.util.Optional;
 public interface EmployeeManager {
 
     //FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount
-    boolean login(String email, String password);
+    Optional<Employee> login(String email, String password);
 
 
 
