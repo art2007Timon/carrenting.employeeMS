@@ -10,22 +10,28 @@ import java.util.Optional;
 
 public interface EmployeeManager {
 
-    //FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount
     Optional<Employee> login(String email, String password);
 
 
 
-    //FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen
+    //======================================[Car]====================================================
     List<CarDto> getAllCars();
+    CarDto addCar(CarDto car);
+    CarDto updateCar(String licensePlate, CarDto car);
+    CarDto getCar(@PathVariable String licensePlate);
+    void deleteCar(@PathVariable String licensePlate);
+
+    //======================================[Customers]====================================================
     List<CustomerDto> getAllCustomers();
+
+
+
+
+
+    //======================================[Reservations]====================================================
     List<ReservationDto> getAllReservations();
-
-
-
-    //FUNC-MITA-030 – Reservierungen verwalten
     ReservationDto addReservation(ReservationDto reservation);
     void deleteReservation(Long reservationId);
-
     List<ReservationDto> getReservationsForVehicle(@RequestParam("carID") int carID);
 
 

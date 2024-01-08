@@ -25,9 +25,6 @@ public class EmployeeController {
         this.employeeManager = employeeManager;
     }
 
-
-    //------------------------[FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount]--------------------------------------
-
     //http://localhost:8081/api/employee/login
     //JSON: {"email": "mayerp@example.com", "password": "password123" }
     @PostMapping("/login")
@@ -35,7 +32,6 @@ public class EmployeeController {
         Optional<Employee> employee = employeeManager.login(credentials.get("email"), credentials.get("password"));
         return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
-
     //Ergibt mehr Sicherheit, enthält nur 2 benoetigen Variablen.
     @Getter
     @Setter
@@ -44,8 +40,10 @@ public class EmployeeController {
         private String password;
     }
 
-    //------------------------[FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen]--------------------------------------
 
+
+
+    //======================================[Car]====================================================
     //Alle Fahrzeuge anzeigen
     //GET http://localhost:8081/api/employee/car
     @GetMapping("/car")
@@ -54,6 +52,40 @@ public class EmployeeController {
         return ResponseEntity.ok(cars);
     }
 
+    //Fahrzeig einfügen
+    //POST http://localhost:8081/api/employee/car
+    //JSON: {"licensePlate": "RRKHM777","mileage": 1400,"brand": "PEUGOT","model": "311"} or with carID -> "carID" : 1
+    @PostMapping("/car")
+    public ResponseEntity<CarDto> addCar(@RequestBody CarDto car){
+        CarDto addCar = employeeManager.addCar(car);
+        return ResponseEntity.ok(addCar);
+    }
+
+    //Fahrzeugparameter ändern
+    //PUT http://localhost:8081/api/employee/car/RRKHM777
+    @PutMapping("/car/{licensePlate}")
+    public ResponseEntity<CarDto> updateCar(@PathVariable String licensePlate, @RequestBody CarDto car) {
+        CarDto updatedCar = employeeManager.updateCar(licensePlate, car);
+        return ResponseEntity.ok(updatedCar);
+    }
+
+    //Fahrzeug nach KEnnzeichen
+    //GET: http://localhost:8081/api/employee/car/MK9
+    @GetMapping("/car/{licensePlate}")
+    public ResponseEntity<CarDto> getCar(@PathVariable String licensePlate){
+        CarDto car = employeeManager.getCar(licensePlate);
+        return ResponseEntity.ok(car);
+    }
+
+    //DEELETE: http://localhost:8081/api/employee/car/XYZ789
+    @DeleteMapping("/car/{licensePlate}")
+    public ResponseEntity<Void> deleteCar(@PathVariable String licensePlate) {
+        employeeManager.deleteCar(licensePlate);
+        return ResponseEntity.ok().build();
+    }
+
+
+    //======================================[Customers]====================================================
     //Alle Kunden anzeigen
     //GET: http://localhost:8081/api/employee/customer
     @GetMapping("/customer")
@@ -63,6 +95,8 @@ public class EmployeeController {
     }
 
 
+
+    //======================================[Reservations]====================================================
     //Alle Reservierungen anzeigen
     //GET: http://localhost:8081/api/employee/reservation
     @GetMapping("/reservation")
@@ -70,8 +104,6 @@ public class EmployeeController {
         List<ReservationDto> reservations = employeeManager.getAllReservations();
         return ResponseEntity.ok(reservations);
     }
-
-    //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
 
     //Neue Reservierung
     //POST: http://localhost:8081/api/employee/reservation
@@ -97,6 +129,7 @@ public class EmployeeController {
         List<ReservationDto> reservations = employeeManager.getReservationsForVehicle(carID);
         return ResponseEntity.ok(reservations);
     }
+
 
     //======================================[Maintenance]====================================================
 
@@ -141,6 +174,8 @@ public class EmployeeController {
         employeeManager.deleteMaintenance(id);
         return ResponseEntity.ok().build();
     }
+
+
 
 
     //======================================[GPS]====================================================
