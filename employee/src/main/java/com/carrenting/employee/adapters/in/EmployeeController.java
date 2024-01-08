@@ -52,15 +52,15 @@ public class EmployeeController {
     //------------------------[FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen]--------------------------------------
 
     //Alle Fahrzeuge anzeigen
-    //GET http://localhost:8081/api/employee/cars
-    @GetMapping("/cars")
+    //GET http://localhost:8081/api/employee/car
+    @GetMapping("/car")
     public ResponseEntity<List<CarDto>> getAllCars() {
         List<CarDto> cars = employeeManager.getAllCars();
         return ResponseEntity.ok(cars);
     }
 
     //Alle Kunden anzeigen
-    //GET: http://localhost:8081/api/employee/customers
+    //GET: http://localhost:8081/api/employee/customer
     @GetMapping("/customer")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         List<CustomerDto> customers = employeeManager.getAllCustomers();
@@ -82,7 +82,7 @@ public class EmployeeController {
     //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
 
     //Neue Reservierung
-    //POST: http://localhost:8081/api/employees/reservation
+    //POST: http://localhost:8081/api/employee/reservation
     //JSON:  {"reservationID": 16, "startDate": "2024-01-01T10:00:00", "endDate": "2024-01-07T15:00:00", "customerID": 1, "carID": 4 }
     @PostMapping("/reservation")
     public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservation) {
@@ -91,7 +91,7 @@ public class EmployeeController {
     }
 
     //Reservierung nach ID Loeschen
-    //DELETE: http://localhost:8081/api/employees/reservation/12
+    //DELETE: http://localhost:8081/api/employee/reservation/5
     @DeleteMapping("/reservation/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         employeeManager.deleteReservation(id);
@@ -99,7 +99,7 @@ public class EmployeeController {
     }
 
     //Reservierung fuer einen Fahrzeig nach CARID ansehen
-    // GET: http://localhost:8081/api/employees/reservation/vehicle?carID=3
+    // GET: http://localhost:8081/api/employee/reservation/vehicle?carID=3
     @GetMapping("/reservation/vehicle")
     public ResponseEntity<List<ReservationDto>> getReservationsForVehicle(@RequestParam("carID") int carID) {
         List<ReservationDto> reservations = employeeManager.getReservationsForVehicle(carID);
@@ -117,7 +117,7 @@ public class EmployeeController {
     //======================================[Maintenance]====================================================
 
     //Erstellung der Wartung, Fahrzeugzuweisung
-    // POST: http://localhost:8081/api/employees/maintenance/schedule
+    // POST: http://localhost:8081/api/employee/maintenance/schedule
     // Body: { "carID": 1, "startDate": "2023-01-01", "endDate": "2023-01-03" }
     @PostMapping("/maintenance/schedule") //✓
     public ResponseEntity<MaintenanceDto> scheduleMaintenance(@RequestBody MaintenanceDto maintenance) {
