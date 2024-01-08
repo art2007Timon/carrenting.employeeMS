@@ -26,7 +26,6 @@ public class EmployeeController {
     }
 
 
-
     //------------------------[FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount]--------------------------------------
 
     //http://localhost:8081/api/employee/login
@@ -44,10 +43,6 @@ public class EmployeeController {
         private String email;
         private String password;
     }
-
-
-
-
 
     //------------------------[FUNC-MITA-020 – Übersicht von Kunden, Autos und Reservierungen]--------------------------------------
 
@@ -76,9 +71,6 @@ public class EmployeeController {
         return ResponseEntity.ok(reservations);
     }
 
-
-
-
     //------------------------[FUNC-MITA-030 – Reservierungen verwalten]--------------------------------------
 
     //Neue Reservierung
@@ -105,14 +97,6 @@ public class EmployeeController {
         List<ReservationDto> reservations = employeeManager.getReservationsForVehicle(carID);
         return ResponseEntity.ok(reservations);
     }
-
-
-
-
-
-
-
-
 
     //======================================[Maintenance]====================================================
 
@@ -159,16 +143,13 @@ public class EmployeeController {
     }
 
 
-
-
     //======================================[GPS]====================================================
     //GET: http://localhost:8081/api/employees/gps/current
     @GetMapping("/gps/current") //✓
-    public ResponseEntity<List<GpsDto>> getNewestGpsLocationsPerCar(){
+    public ResponseEntity<List<GpsDto>> getNewestGpsLocationsPerCar() {
         List<GpsDto> GpsLocationsPerCar = employeeManager.getNewestGpsLocationsPerCar();
         return ResponseEntity.ok(GpsLocationsPerCar);
     }
-
 
 
 }
