@@ -177,7 +177,6 @@ public class EmployeeController {
 
 
 
-
     //======================================[GPS]====================================================
     //GET: http://localhost:8081/api/employees/gps/current
     @GetMapping("/gps/current") //✓
