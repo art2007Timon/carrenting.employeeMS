@@ -32,16 +32,14 @@ public class EmployeeController {
         Optional<Employee> employee = employeeManager.login(credentials.get("email"), credentials.get("password"));
         return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
-    //Ergibt mehr Sicherheit, enthält nur 2 benoetigen Variablen.
+
+    //Ergibt mehr Sicherheit, enthaelt nur 2 benoetigen Variablen.
     @Getter
     @Setter
     private static class LoginRequest {
         private String email;
         private String password;
     }
-
-
-
 
     //======================================[Car]====================================================
     //Alle Fahrzeuge anzeigen
@@ -52,16 +50,16 @@ public class EmployeeController {
         return ResponseEntity.ok(cars);
     }
 
-    //Fahrzeig einfügen
+    //Fahrzeug einfuegen
     //POST http://localhost:8081/api/employee/car
     //JSON: {"licensePlate": "RRKHM777","mileage": 1400,"brand": "PEUGOT","model": "311"} or with carID -> "carID" : 1
     @PostMapping("/car")
-    public ResponseEntity<CarDto> addCar(@RequestBody CarDto car){
+    public ResponseEntity<CarDto> addCar(@RequestBody CarDto car) {
         CarDto addCar = employeeManager.addCar(car);
         return ResponseEntity.ok(addCar);
     }
 
-    //Fahrzeugparameter ändern
+    //Fahrzeugparameter aendern
     //PUT http://localhost:8081/api/employee/car/RRKHM777
     @PutMapping("/car/{licensePlate}")
     public ResponseEntity<CarDto> updateCar(@PathVariable String licensePlate, @RequestBody CarDto car) {
@@ -69,10 +67,10 @@ public class EmployeeController {
         return ResponseEntity.ok(updatedCar);
     }
 
-    //Fahrzeug nach KEnnzeichen
+    //Fahrzeug nach Kennzeichen
     //GET: http://localhost:8081/api/employee/car/MK9
     @GetMapping("/car/{licensePlate}")
-    public ResponseEntity<CarDto> getCar(@PathVariable String licensePlate){
+    public ResponseEntity<CarDto> getCar(@PathVariable String licensePlate) {
         CarDto car = employeeManager.getCar(licensePlate);
         return ResponseEntity.ok(car);
     }
@@ -93,8 +91,6 @@ public class EmployeeController {
         List<CustomerDto> customers = employeeManager.getAllCustomers();
         return ResponseEntity.ok(customers);
     }
-
-
 
     //======================================[Reservations]====================================================
     //Alle Reservierungen anzeigen
@@ -122,14 +118,13 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
-    //Reservierung fuer einen Fahrzeig nach CARID ansehen
+    //Reservierung fuer einen Fahrzeug nach carID ansehen
     // GET: http://localhost:8081/api/employee/reservation/vehicle?carID=3
     @GetMapping("/reservation/vehicle")
     public ResponseEntity<List<ReservationDto>> getReservationsForVehicle(@RequestParam("carID") int carID) {
         List<ReservationDto> reservations = employeeManager.getReservationsForVehicle(carID);
         return ResponseEntity.ok(reservations);
     }
-
 
     //======================================[Maintenance]====================================================
 
@@ -175,8 +170,6 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
-
-
     //======================================[GPS]====================================================
     //GET: http://localhost:8081/api/employees/gps/current
     @GetMapping("/gps/current") //✓
@@ -184,6 +177,5 @@ public class EmployeeController {
         List<GpsDto> GpsLocationsPerCar = employeeManager.getNewestGpsLocationsPerCar();
         return ResponseEntity.ok(GpsLocationsPerCar);
     }
-
 
 }
