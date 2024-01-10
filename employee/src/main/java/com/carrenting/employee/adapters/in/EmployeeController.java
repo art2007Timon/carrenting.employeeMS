@@ -133,7 +133,7 @@ public class EmployeeController {
     //Erstellung der Wartung, Fahrzeugzuweisung
     // POST: http://localhost:8081/api/employee/maintenance/schedule
     // Body: { "carID": 1, "startDate": "2023-01-01", "endDate": "2023-01-03" }
-    @PostMapping("/maintenance/schedule") //✓
+    @PostMapping("/maintenance") //✓
     public ResponseEntity<MaintenanceDto> scheduleMaintenance(@RequestBody MaintenanceDto maintenance) {
         MaintenanceDto scheduledMaintenance = employeeManager.scheduleMaintenance(maintenance);
         return ResponseEntity.ok(scheduledMaintenance);
