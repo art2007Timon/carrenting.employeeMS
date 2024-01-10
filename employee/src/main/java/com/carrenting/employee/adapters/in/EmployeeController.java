@@ -193,4 +193,16 @@ public class EmployeeController {
         return employeeManager.exportData(reportType);
     }
 
+
+
+    //======================================[Notification]====================================================
+
+    //POST: http://localhost:8081/api/employee/sendMessage
+    //BODY:     { "customerId": 1, "messageText": "This is a message." }
+    @PostMapping("/sendMessage")
+    public ResponseEntity<Void> sendMessage(@RequestBody NotificationRequestDto notificationRequest) {
+        employeeManager.sendMessage(notificationRequest);
+        return ResponseEntity.ok().build();
+    }
+
 }

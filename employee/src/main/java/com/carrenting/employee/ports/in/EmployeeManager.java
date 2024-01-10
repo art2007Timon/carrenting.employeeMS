@@ -64,4 +64,7 @@ public interface EmployeeManager {
     //======================================[REPORT]====================================================
     String exportData(String reportType);
 
+
+    //======================================[Notificatio]====================================================
+    void sendMessage(NotificationRequestDto notificationRequest);
 }

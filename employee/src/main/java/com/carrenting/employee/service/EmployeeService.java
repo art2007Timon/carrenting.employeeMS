@@ -22,6 +22,7 @@ public class EmployeeService implements EmployeeManager {
     private final MaintenanceClient maintenanceClient;
     private final GpsClient gpsClient;
     private final ReportClient reportClient;
+    private final NotificationClient notificationClient;
 
 
 
@@ -34,7 +35,8 @@ public class EmployeeService implements EmployeeManager {
                            ReservationClient reservationClient,
                            MaintenanceClient maintenanceClient,
                            GpsClient gpsClient,
-                           ReportClient reportClient) {
+                           ReportClient reportClient,
+                           NotificationClient notificationClient) {
         this.employeeRepository = employeeRepository;
         this.carClient = carClient;
         this.customerClient = customerClient;
@@ -42,6 +44,7 @@ public class EmployeeService implements EmployeeManager {
         this.maintenanceClient = maintenanceClient;
         this.gpsClient = gpsClient;
         this.reportClient = reportClient;
+        this.notificationClient = notificationClient;
     }
 
 
@@ -161,6 +164,12 @@ public class EmployeeService implements EmployeeManager {
             e.printStackTrace();
             return "Error occurred while processing data: " + e.getMessage();
         }
+    }
+
+    //======================================[Notification]====================================================
+    @Override
+    public void sendMessage(NotificationRequestDto notificationRequest) {
+        notificationClient.sendMessage(notificationRequest);
     }
 
 }

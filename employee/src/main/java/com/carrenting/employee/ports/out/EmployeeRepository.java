@@ -9,5 +9,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     //FUNC-MITA-010 – Anmeldung in einen Mitarbeiteraccount
     Optional<Employee> findByEmailAndPassword(String email, String password);
 
-    //Rest ueber REST API
 }
