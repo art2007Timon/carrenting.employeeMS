@@ -1,6 +1,7 @@
 package com.carrenting.employee.adapters.in;
 
 import com.carrenting.employee.dto.*;
+import com.carrenting.employee.feign.ReportClient;
 import com.carrenting.employee.ports.data.Employee;
 import com.carrenting.employee.ports.in.EmployeeManager;
 import lombok.Getter;
@@ -20,8 +21,9 @@ public class EmployeeController {
 
     private final EmployeeManager employeeManager;
 
+
     @Autowired
-    public EmployeeController(EmployeeManager employeeManager) {
+    public EmployeeController(EmployeeManager employeeManager, ReportClient reportClient) {
         this.employeeManager = employeeManager;
     }
 
@@ -176,6 +178,19 @@ public class EmployeeController {
     public ResponseEntity<List<GpsDto>> getNewestGpsLocationsPerCar() {
         List<GpsDto> GpsLocationsPerCar = employeeManager.getNewestGpsLocationsPerCar();
         return ResponseEntity.ok(GpsLocationsPerCar);
+    }
+
+
+
+    //======================================[REPORT]====================================================
+
+    //GET: http://localhost:8081/api/employee/exportData?reportType=Reservation
+    //GET: http://localhost:8081/api/employee/exportData?reportType=Car
+    //GET: http://localhost:8081/api/employee/exportData?reportType=Customer
+    //GET: http://localhost:8081/api/employee/exportData?reportType=Maintenance
+    @GetMapping("/exportData")
+    public String exportReport(@RequestParam("reportType") String reportType) {
+        return employeeManager.exportData(reportType);
     }
 
 }

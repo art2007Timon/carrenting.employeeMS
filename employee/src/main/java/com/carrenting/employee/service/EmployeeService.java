@@ -5,6 +5,7 @@ import com.carrenting.employee.feign.*;
 import com.carrenting.employee.ports.data.Employee;
 import com.carrenting.employee.ports.in.EmployeeManager;
 import com.carrenting.employee.ports.out.EmployeeRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,10 @@ public class EmployeeService implements EmployeeManager {
     private final ReservationClient reservationClient;
     private final MaintenanceClient maintenanceClient;
     private final GpsClient gpsClient;
+    private final ReportClient reportClient;
+
+
+
 
 
     @Autowired
@@ -28,13 +33,15 @@ public class EmployeeService implements EmployeeManager {
                            CustomerClient customerClient,
                            ReservationClient reservationClient,
                            MaintenanceClient maintenanceClient,
-                           GpsClient gpsClient) {
+                           GpsClient gpsClient,
+                           ReportClient reportClient) {
         this.employeeRepository = employeeRepository;
         this.carClient = carClient;
         this.customerClient = customerClient;
         this.reservationClient = reservationClient;
         this.maintenanceClient = maintenanceClient;
         this.gpsClient = gpsClient;
+        this.reportClient = reportClient;
     }
 
 
@@ -143,5 +150,17 @@ public class EmployeeService implements EmployeeManager {
         return gpsClient.getNewestGpsLocationsPerCar();
     }
 
+
+    //======================================[REPORT]====================================================
+
+    @Override
+    public String exportData(String reportType) {
+        try {
+            return reportClient.exportAsCsv(reportType);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error occurred while processing data: " + e.getMessage();
+        }
+    }
 
 }

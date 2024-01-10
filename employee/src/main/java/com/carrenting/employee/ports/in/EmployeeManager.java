@@ -59,4 +59,9 @@ public interface EmployeeManager {
     //======================================[GPS]====================================================
     List<GpsDto> getNewestGpsLocationsPerCar();
 
+
+
+    //======================================[REPORT]====================================================
+    String exportData(String reportType);
+
 }
