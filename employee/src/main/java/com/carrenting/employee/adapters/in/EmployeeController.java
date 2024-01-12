@@ -35,14 +35,6 @@ public class EmployeeController {
         return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
-    //Ergibt mehr Sicherheit, enthaelt nur 2 benoetigen Variablen.
-    @Getter
-    @Setter
-    private static class LoginRequest {
-        private String email;
-        private String password;
-    }
-
     //======================================[Car]====================================================
     //Alle Fahrzeuge anzeigen
     //GET http://localhost:8081/api/employee/car
