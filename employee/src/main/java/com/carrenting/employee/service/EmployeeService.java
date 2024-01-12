@@ -109,8 +109,10 @@ public class EmployeeService implements EmployeeManager {
         return reservationClient.getReservationsForVehicle(carID);
     }
 
-
-
+    @Override
+    public List<CarDto> getAvailableVehicle() {
+        return reservationClient.getAvailableVehicle();
+    }
 
 
     //======================================[Maintenance]====================================================

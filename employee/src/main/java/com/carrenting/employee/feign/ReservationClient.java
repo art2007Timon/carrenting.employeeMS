@@ -1,7 +1,9 @@
 package com.carrenting.employee.feign;
 
+import com.carrenting.employee.dto.CarDto;
 import com.carrenting.employee.dto.ReservationDto;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,4 +34,8 @@ public interface ReservationClient {
     // GET: http://localhost:8081/api/employees/reservation/vehicle?carID=3
     @GetMapping("/api/reservation/vehicle")
     List<ReservationDto> getReservationsForVehicle(@RequestParam("carID") int carID);
+
+    //Alle verfügbare Fahrzeuge
+    @GetMapping("/api/reservation/availableVehicle")
+     List<CarDto> getAvailableVehicle();
 }

@@ -120,6 +120,14 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
+    //Alle verfügbare Fahrzeuge
+    //GET: http://localhost:8081/api/employee/reservation/availableVehicle
+    @GetMapping("/reservation/availableVehicle")
+    public ResponseEntity<List<CarDto>> getAvailableVehicle() {
+        List<CarDto> carDtoList = employeeManager.getAvailableVehicle();
+        return ResponseEntity.ok(carDtoList);
+    }
+
     //Reservierung fuer einen Fahrzeug nach carID ansehen
     // GET: http://localhost:8081/api/employee/reservation/vehicle?carID=3
     @GetMapping("/reservation/vehicle")

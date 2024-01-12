@@ -33,6 +33,7 @@ public interface EmployeeManager {
     ReservationDto addReservation(ReservationDto reservation);
     void deleteReservation(Long reservationId);
     List<ReservationDto> getReservationsForVehicle(@RequestParam("carID") int carID);
+    List<CarDto> getAvailableVehicle();
 
 
 
