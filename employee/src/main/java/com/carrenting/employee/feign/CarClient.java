@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(name = "car-service", url = "http://localhost:8080")
+@FeignClient(name = "car-service", url = "http://car:8080")
 public interface CarClient {
 
     //Alle Fahrzeuge anzeigen

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(name = "customer-service", url = "http://localhost:8082")
+@FeignClient(name = "customer-service", url = "http://customer:8082")
 public interface CustomerClient {
 
     //Alle Kunden anzeigen

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(name = "gps-service", url = "http://localhost:8090")
+@FeignClient(name = "gps-service", url = "http://gps:8090")
 public interface GpsClient {
     @GetMapping("/api/gps")
     List<GpsDto> getNewestGpsLocationsPerCar();

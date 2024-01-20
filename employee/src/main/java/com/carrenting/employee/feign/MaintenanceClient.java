@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "maintenance-service", url = "http://localhost:8084")
+@FeignClient(name = "maintenance-service", url = "http://maintenance:8084")
 public interface MaintenanceClient {
 
                 //[FUNC-WART-010 - Planung von Fahrzeugwartungen]

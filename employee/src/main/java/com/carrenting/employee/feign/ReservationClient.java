@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "reservation-service", url = "http://localhost:8083")
+@FeignClient(name = "reservation-service", url = "http://reservation:8083")
 public interface ReservationClient {
 
     //Alle Reservierungen anzeigen
